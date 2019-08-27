@@ -1,0 +1,912 @@
+type AggregateAlbum {
+  count: Int!
+}
+
+type AggregateArtist {
+  count: Int!
+}
+
+type AggregateGenre {
+  count: Int!
+}
+
+type Album implements Node {
+  id: ID!
+  createdAt: DateTime!
+  name: String!
+  genre: Genre!
+  artist: Artist!
+}
+
+# A connection to a list of items.
+type AlbumConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+  # A list of edges.
+  edges: [AlbumEdge]!
+  aggregate: AggregateAlbum!
+}
+
+input AlbumCreateInput {
+  id: ID
+  name: String!
+  genre: GenreCreateOneWithoutAlbumsInput!
+  artist: ArtistCreateOneWithoutAlbumsInput!
+}
+
+input AlbumCreateManyWithoutArtistInput {
+  create: [AlbumCreateWithoutArtistInput!]
+  connect: [AlbumWhereUniqueInput!]
+}
+
+input AlbumCreateManyWithoutGenreInput {
+  create: [AlbumCreateWithoutGenreInput!]
+  connect: [AlbumWhereUniqueInput!]
+}
+
+input AlbumCreateWithoutArtistInput {
+  id: ID
+  name: String!
+  genre: GenreCreateOneWithoutAlbumsInput!
+}
+
+input AlbumCreateWithoutGenreInput {
+  id: ID
+  name: String!
+  artist: ArtistCreateOneWithoutAlbumsInput!
+}
+
+# An edge in a connection.
+type AlbumEdge {
+  # The item at the end of the edge.
+  node: Album!
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+enum AlbumOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  name_ASC
+  name_DESC
+}
+
+type AlbumPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  name: String!
+}
+
+input AlbumScalarWhereInput {
+  # Logical AND on all given filters.
+  AND: [AlbumScalarWhereInput!]
+  # Logical OR on all given filters.
+  OR: [AlbumScalarWhereInput!]
+  # Logical NOT on all given filters combined by AND.
+  NOT: [AlbumScalarWhereInput!]
+  id: ID
+  # All values that are not equal to given value.
+  id_not: ID
+  # All values that are contained in given list.
+  id_in: [ID!]
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+  # All values less than the given value.
+  id_lt: ID
+  # All values less than or equal the given value.
+  id_lte: ID
+  # All values greater than the given value.
+  id_gt: ID
+  # All values greater than or equal the given value.
+  id_gte: ID
+  # All values containing the given string.
+  id_contains: ID
+  # All values not containing the given string.
+  id_not_contains: ID
+  # All values starting with the given string.
+  id_starts_with: ID
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+  # All values ending with the given string.
+  id_ends_with: ID
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  createdAt: DateTime
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+  # All values less than the given value.
+  createdAt_lt: DateTime
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  name: String
+  # All values that are not equal to given value.
+  name_not: String
+  # All values that are contained in given list.
+  name_in: [String!]
+  # All values that are not contained in given list.
+  name_not_in: [String!]
+  # All values less than the given value.
+  name_lt: String
+  # All values less than or equal the given value.
+  name_lte: String
+  # All values greater than the given value.
+  name_gt: String
+  # All values greater than or equal the given value.
+  name_gte: String
+  # All values containing the given string.
+  name_contains: String
+  # All values not containing the given string.
+  name_not_contains: String
+  # All values starting with the given string.
+  name_starts_with: String
+  # All values not starting with the given string.
+  name_not_starts_with: String
+  # All values ending with the given string.
+  name_ends_with: String
+  # All values not ending with the given string.
+  name_not_ends_with: String
+}
+
+type AlbumSubscriptionPayload {
+  mutation: MutationType!
+  node: Album
+  updatedFields: [String!]
+  previousValues: AlbumPreviousValues
+}
+
+input AlbumSubscriptionWhereInput {
+  # Logical AND on all given filters.
+  AND: [AlbumSubscriptionWhereInput!]
+  # Logical OR on all given filters.
+  OR: [AlbumSubscriptionWhereInput!]
+  # Logical NOT on all given filters combined by AND.
+  NOT: [AlbumSubscriptionWhereInput!]
+  # The subscription event gets dispatched when it's listed in mutation_in
+  mutation_in: [MutationType!]
+  # The subscription event gets only dispatched when one of the updated fields names is included in this list
+  updatedFields_contains: String
+  # The subscription event gets only dispatched when all of the field names included in this list have been updated
+  updatedFields_contains_every: [String!]
+  # The subscription event gets only dispatched when some of the field names included in this list have been updated
+  updatedFields_contains_some: [String!]
+  node: AlbumWhereInput
+}
+
+input AlbumUpdateInput {
+  name: String
+  genre: GenreUpdateOneRequiredWithoutAlbumsInput
+  artist: ArtistUpdateOneRequiredWithoutAlbumsInput
+}
+
+input AlbumUpdateManyDataInput {
+  name: String
+}
+
+input AlbumUpdateManyMutationInput {
+  name: String
+}
+
+input AlbumUpdateManyWithoutArtistInput {
+  create: [AlbumCreateWithoutArtistInput!]
+  connect: [AlbumWhereUniqueInput!]
+  set: [AlbumWhereUniqueInput!]
+  disconnect: [AlbumWhereUniqueInput!]
+  delete: [AlbumWhereUniqueInput!]
+  update: [AlbumUpdateWithWhereUniqueWithoutArtistInput!]
+  updateMany: [AlbumUpdateManyWithWhereNestedInput!]
+  deleteMany: [AlbumScalarWhereInput!]
+  upsert: [AlbumUpsertWithWhereUniqueWithoutArtistInput!]
+}
+
+input AlbumUpdateManyWithoutGenreInput {
+  create: [AlbumCreateWithoutGenreInput!]
+  connect: [AlbumWhereUniqueInput!]
+  set: [AlbumWhereUniqueInput!]
+  disconnect: [AlbumWhereUniqueInput!]
+  delete: [AlbumWhereUniqueInput!]
+  update: [AlbumUpdateWithWhereUniqueWithoutGenreInput!]
+  updateMany: [AlbumUpdateManyWithWhereNestedInput!]
+  deleteMany: [AlbumScalarWhereInput!]
+  upsert: [AlbumUpsertWithWhereUniqueWithoutGenreInput!]
+}
+
+input AlbumUpdateManyWithWhereNestedInput {
+  where: AlbumScalarWhereInput!
+  data: AlbumUpdateManyDataInput!
+}
+
+input AlbumUpdateWithoutArtistDataInput {
+  name: String
+  genre: GenreUpdateOneRequiredWithoutAlbumsInput
+}
+
+input AlbumUpdateWithoutGenreDataInput {
+  name: String
+  artist: ArtistUpdateOneRequiredWithoutAlbumsInput
+}
+
+input AlbumUpdateWithWhereUniqueWithoutArtistInput {
+  where: AlbumWhereUniqueInput!
+  data: AlbumUpdateWithoutArtistDataInput!
+}
+
+input AlbumUpdateWithWhereUniqueWithoutGenreInput {
+  where: AlbumWhereUniqueInput!
+  data: AlbumUpdateWithoutGenreDataInput!
+}
+
+input AlbumUpsertWithWhereUniqueWithoutArtistInput {
+  where: AlbumWhereUniqueInput!
+  update: AlbumUpdateWithoutArtistDataInput!
+  create: AlbumCreateWithoutArtistInput!
+}
+
+input AlbumUpsertWithWhereUniqueWithoutGenreInput {
+  where: AlbumWhereUniqueInput!
+  update: AlbumUpdateWithoutGenreDataInput!
+  create: AlbumCreateWithoutGenreInput!
+}
+
+input AlbumWhereInput {
+  # Logical AND on all given filters.
+  AND: [AlbumWhereInput!]
+  # Logical OR on all given filters.
+  OR: [AlbumWhereInput!]
+  # Logical NOT on all given filters combined by AND.
+  NOT: [AlbumWhereInput!]
+  id: ID
+  # All values that are not equal to given value.
+  id_not: ID
+  # All values that are contained in given list.
+  id_in: [ID!]
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+  # All values less than the given value.
+  id_lt: ID
+  # All values less than or equal the given value.
+  id_lte: ID
+  # All values greater than the given value.
+  id_gt: ID
+  # All values greater than or equal the given value.
+  id_gte: ID
+  # All values containing the given string.
+  id_contains: ID
+  # All values not containing the given string.
+  id_not_contains: ID
+  # All values starting with the given string.
+  id_starts_with: ID
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+  # All values ending with the given string.
+  id_ends_with: ID
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  createdAt: DateTime
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+  # All values less than the given value.
+  createdAt_lt: DateTime
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  name: String
+  # All values that are not equal to given value.
+  name_not: String
+  # All values that are contained in given list.
+  name_in: [String!]
+  # All values that are not contained in given list.
+  name_not_in: [String!]
+  # All values less than the given value.
+  name_lt: String
+  # All values less than or equal the given value.
+  name_lte: String
+  # All values greater than the given value.
+  name_gt: String
+  # All values greater than or equal the given value.
+  name_gte: String
+  # All values containing the given string.
+  name_contains: String
+  # All values not containing the given string.
+  name_not_contains: String
+  # All values starting with the given string.
+  name_starts_with: String
+  # All values not starting with the given string.
+  name_not_starts_with: String
+  # All values ending with the given string.
+  name_ends_with: String
+  # All values not ending with the given string.
+  name_not_ends_with: String
+  genre: GenreWhereInput
+  artist: ArtistWhereInput
+}
+
+input AlbumWhereUniqueInput {
+  id: ID
+}
+
+type Artist implements Node {
+  id: ID!
+  createdAt: DateTime!
+  name: String!
+  age: Int!
+  albums(
+    where: AlbumWhereInput
+    orderBy: AlbumOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Album!]
+}
+
+# A connection to a list of items.
+type ArtistConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+  # A list of edges.
+  edges: [ArtistEdge]!
+  aggregate: AggregateArtist!
+}
+
+input ArtistCreateInput {
+  id: ID
+  name: String!
+  age: Int!
+  albums: AlbumCreateManyWithoutArtistInput
+}
+
+input ArtistCreateOneWithoutAlbumsInput {
+  create: ArtistCreateWithoutAlbumsInput
+  connect: ArtistWhereUniqueInput
+}
+
+input ArtistCreateWithoutAlbumsInput {
+  id: ID
+  name: String!
+  age: Int!
+}
+
+# An edge in a connection.
+type ArtistEdge {
+  # The item at the end of the edge.
+  node: Artist!
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+enum ArtistOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  name_ASC
+  name_DESC
+  age_ASC
+  age_DESC
+}
+
+type ArtistPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  name: String!
+  age: Int!
+}
+
+type ArtistSubscriptionPayload {
+  mutation: MutationType!
+  node: Artist
+  updatedFields: [String!]
+  previousValues: ArtistPreviousValues
+}
+
+input ArtistSubscriptionWhereInput {
+  # Logical AND on all given filters.
+  AND: [ArtistSubscriptionWhereInput!]
+  # Logical OR on all given filters.
+  OR: [ArtistSubscriptionWhereInput!]
+  # Logical NOT on all given filters combined by AND.
+  NOT: [ArtistSubscriptionWhereInput!]
+  # The subscription event gets dispatched when it's listed in mutation_in
+  mutation_in: [MutationType!]
+  # The subscription event gets only dispatched when one of the updated fields names is included in this list
+  updatedFields_contains: String
+  # The subscription event gets only dispatched when all of the field names included in this list have been updated
+  updatedFields_contains_every: [String!]
+  # The subscription event gets only dispatched when some of the field names included in this list have been updated
+  updatedFields_contains_some: [String!]
+  node: ArtistWhereInput
+}
+
+input ArtistUpdateInput {
+  name: String
+  age: Int
+  albums: AlbumUpdateManyWithoutArtistInput
+}
+
+input ArtistUpdateManyMutationInput {
+  name: String
+  age: Int
+}
+
+input ArtistUpdateOneRequiredWithoutAlbumsInput {
+  create: ArtistCreateWithoutAlbumsInput
+  connect: ArtistWhereUniqueInput
+  update: ArtistUpdateWithoutAlbumsDataInput
+  upsert: ArtistUpsertWithoutAlbumsInput
+}
+
+input ArtistUpdateWithoutAlbumsDataInput {
+  name: String
+  age: Int
+}
+
+input ArtistUpsertWithoutAlbumsInput {
+  update: ArtistUpdateWithoutAlbumsDataInput!
+  create: ArtistCreateWithoutAlbumsInput!
+}
+
+input ArtistWhereInput {
+  # Logical AND on all given filters.
+  AND: [ArtistWhereInput!]
+  # Logical OR on all given filters.
+  OR: [ArtistWhereInput!]
+  # Logical NOT on all given filters combined by AND.
+  NOT: [ArtistWhereInput!]
+  id: ID
+  # All values that are not equal to given value.
+  id_not: ID
+  # All values that are contained in given list.
+  id_in: [ID!]
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+  # All values less than the given value.
+  id_lt: ID
+  # All values less than or equal the given value.
+  id_lte: ID
+  # All values greater than the given value.
+  id_gt: ID
+  # All values greater than or equal the given value.
+  id_gte: ID
+  # All values containing the given string.
+  id_contains: ID
+  # All values not containing the given string.
+  id_not_contains: ID
+  # All values starting with the given string.
+  id_starts_with: ID
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+  # All values ending with the given string.
+  id_ends_with: ID
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  createdAt: DateTime
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+  # All values less than the given value.
+  createdAt_lt: DateTime
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  name: String
+  # All values that are not equal to given value.
+  name_not: String
+  # All values that are contained in given list.
+  name_in: [String!]
+  # All values that are not contained in given list.
+  name_not_in: [String!]
+  # All values less than the given value.
+  name_lt: String
+  # All values less than or equal the given value.
+  name_lte: String
+  # All values greater than the given value.
+  name_gt: String
+  # All values greater than or equal the given value.
+  name_gte: String
+  # All values containing the given string.
+  name_contains: String
+  # All values not containing the given string.
+  name_not_contains: String
+  # All values starting with the given string.
+  name_starts_with: String
+  # All values not starting with the given string.
+  name_not_starts_with: String
+  # All values ending with the given string.
+  name_ends_with: String
+  # All values not ending with the given string.
+  name_not_ends_with: String
+  age: Int
+  # All values that are not equal to given value.
+  age_not: Int
+  # All values that are contained in given list.
+  age_in: [Int!]
+  # All values that are not contained in given list.
+  age_not_in: [Int!]
+  # All values less than the given value.
+  age_lt: Int
+  # All values less than or equal the given value.
+  age_lte: Int
+  # All values greater than the given value.
+  age_gt: Int
+  # All values greater than or equal the given value.
+  age_gte: Int
+  albums_every: AlbumWhereInput
+  albums_some: AlbumWhereInput
+  albums_none: AlbumWhereInput
+}
+
+input ArtistWhereUniqueInput {
+  id: ID
+}
+
+type BatchPayload {
+  # The number of nodes that have been affected by the Batch operation.
+  count: Long!
+}
+
+scalar DateTime
+
+type Genre implements Node {
+  id: ID!
+  createdAt: DateTime!
+  name: String!
+  albums(
+    where: AlbumWhereInput
+    orderBy: AlbumOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Album!]
+}
+
+# A connection to a list of items.
+type GenreConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+  # A list of edges.
+  edges: [GenreEdge]!
+  aggregate: AggregateGenre!
+}
+
+input GenreCreateInput {
+  id: ID
+  name: String!
+  albums: AlbumCreateManyWithoutGenreInput
+}
+
+input GenreCreateOneWithoutAlbumsInput {
+  create: GenreCreateWithoutAlbumsInput
+  connect: GenreWhereUniqueInput
+}
+
+input GenreCreateWithoutAlbumsInput {
+  id: ID
+  name: String!
+}
+
+# An edge in a connection.
+type GenreEdge {
+  # The item at the end of the edge.
+  node: Genre!
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+enum GenreOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  name_ASC
+  name_DESC
+}
+
+type GenrePreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  name: String!
+}
+
+type GenreSubscriptionPayload {
+  mutation: MutationType!
+  node: Genre
+  updatedFields: [String!]
+  previousValues: GenrePreviousValues
+}
+
+input GenreSubscriptionWhereInput {
+  # Logical AND on all given filters.
+  AND: [GenreSubscriptionWhereInput!]
+  # Logical OR on all given filters.
+  OR: [GenreSubscriptionWhereInput!]
+  # Logical NOT on all given filters combined by AND.
+  NOT: [GenreSubscriptionWhereInput!]
+  # The subscription event gets dispatched when it's listed in mutation_in
+  mutation_in: [MutationType!]
+  # The subscription event gets only dispatched when one of the updated fields names is included in this list
+  updatedFields_contains: String
+  # The subscription event gets only dispatched when all of the field names included in this list have been updated
+  updatedFields_contains_every: [String!]
+  # The subscription event gets only dispatched when some of the field names included in this list have been updated
+  updatedFields_contains_some: [String!]
+  node: GenreWhereInput
+}
+
+input GenreUpdateInput {
+  name: String
+  albums: AlbumUpdateManyWithoutGenreInput
+}
+
+input GenreUpdateManyMutationInput {
+  name: String
+}
+
+input GenreUpdateOneRequiredWithoutAlbumsInput {
+  create: GenreCreateWithoutAlbumsInput
+  connect: GenreWhereUniqueInput
+  update: GenreUpdateWithoutAlbumsDataInput
+  upsert: GenreUpsertWithoutAlbumsInput
+}
+
+input GenreUpdateWithoutAlbumsDataInput {
+  name: String
+}
+
+input GenreUpsertWithoutAlbumsInput {
+  update: GenreUpdateWithoutAlbumsDataInput!
+  create: GenreCreateWithoutAlbumsInput!
+}
+
+input GenreWhereInput {
+  # Logical AND on all given filters.
+  AND: [GenreWhereInput!]
+  # Logical OR on all given filters.
+  OR: [GenreWhereInput!]
+  # Logical NOT on all given filters combined by AND.
+  NOT: [GenreWhereInput!]
+  id: ID
+  # All values that are not equal to given value.
+  id_not: ID
+  # All values that are contained in given list.
+  id_in: [ID!]
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+  # All values less than the given value.
+  id_lt: ID
+  # All values less than or equal the given value.
+  id_lte: ID
+  # All values greater than the given value.
+  id_gt: ID
+  # All values greater than or equal the given value.
+  id_gte: ID
+  # All values containing the given string.
+  id_contains: ID
+  # All values not containing the given string.
+  id_not_contains: ID
+  # All values starting with the given string.
+  id_starts_with: ID
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+  # All values ending with the given string.
+  id_ends_with: ID
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  createdAt: DateTime
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+  # All values less than the given value.
+  createdAt_lt: DateTime
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  name: String
+  # All values that are not equal to given value.
+  name_not: String
+  # All values that are contained in given list.
+  name_in: [String!]
+  # All values that are not contained in given list.
+  name_not_in: [String!]
+  # All values less than the given value.
+  name_lt: String
+  # All values less than or equal the given value.
+  name_lte: String
+  # All values greater than the given value.
+  name_gt: String
+  # All values greater than or equal the given value.
+  name_gte: String
+  # All values containing the given string.
+  name_contains: String
+  # All values not containing the given string.
+  name_not_contains: String
+  # All values starting with the given string.
+  name_starts_with: String
+  # All values not starting with the given string.
+  name_not_starts_with: String
+  # All values ending with the given string.
+  name_ends_with: String
+  # All values not ending with the given string.
+  name_not_ends_with: String
+  albums_every: AlbumWhereInput
+  albums_some: AlbumWhereInput
+  albums_none: AlbumWhereInput
+}
+
+input GenreWhereUniqueInput {
+  id: ID
+}
+
+# The `Long` scalar type
+#represents non-fractional signed whole numeric values.
+# Long can represent values between -(2^63) and 2^63 - 1.
+scalar Long
+
+type Mutation {
+  createGenre(data: GenreCreateInput!): Genre!
+  createArtist(data: ArtistCreateInput!): Artist!
+  createAlbum(data: AlbumCreateInput!): Album!
+  updateGenre(data: GenreUpdateInput!, where: GenreWhereUniqueInput!): Genre
+  updateArtist(data: ArtistUpdateInput!, where: ArtistWhereUniqueInput!): Artist
+  updateAlbum(data: AlbumUpdateInput!, where: AlbumWhereUniqueInput!): Album
+  deleteGenre(where: GenreWhereUniqueInput!): Genre
+  deleteArtist(where: ArtistWhereUniqueInput!): Artist
+  deleteAlbum(where: AlbumWhereUniqueInput!): Album
+  upsertGenre(
+    where: GenreWhereUniqueInput!
+    create: GenreCreateInput!
+    update: GenreUpdateInput!
+  ): Genre!
+  upsertArtist(
+    where: ArtistWhereUniqueInput!
+    create: ArtistCreateInput!
+    update: ArtistUpdateInput!
+  ): Artist!
+  upsertAlbum(
+    where: AlbumWhereUniqueInput!
+    create: AlbumCreateInput!
+    update: AlbumUpdateInput!
+  ): Album!
+  updateManyGenres(
+    data: GenreUpdateManyMutationInput!
+    where: GenreWhereInput
+  ): BatchPayload!
+  updateManyArtists(
+    data: ArtistUpdateManyMutationInput!
+    where: ArtistWhereInput
+  ): BatchPayload!
+  updateManyAlbums(
+    data: AlbumUpdateManyMutationInput!
+    where: AlbumWhereInput
+  ): BatchPayload!
+  deleteManyGenres(where: GenreWhereInput): BatchPayload!
+  deleteManyArtists(where: ArtistWhereInput): BatchPayload!
+  deleteManyAlbums(where: AlbumWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+# An object with an ID
+interface Node {
+  # The id of the object.
+  id: ID!
+}
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+type Query {
+  genres(
+    where: GenreWhereInput
+    orderBy: GenreOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Genre]!
+  artists(
+    where: ArtistWhereInput
+    orderBy: ArtistOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Artist]!
+  albums(
+    where: AlbumWhereInput
+    orderBy: AlbumOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Album]!
+  genre(where: GenreWhereUniqueInput!): Genre
+  artist(where: ArtistWhereUniqueInput!): Artist
+  album(where: AlbumWhereUniqueInput!): Album
+  genresConnection(
+    where: GenreWhereInput
+    orderBy: GenreOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): GenreConnection!
+  artistsConnection(
+    where: ArtistWhereInput
+    orderBy: ArtistOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): ArtistConnection!
+  albumsConnection(
+    where: AlbumWhereInput
+    orderBy: AlbumOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): AlbumConnection!
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
+}
+
+type Subscription {
+  genre(where: GenreSubscriptionWhereInput): GenreSubscriptionPayload
+  artist(where: ArtistSubscriptionWhereInput): ArtistSubscriptionPayload
+  album(where: AlbumSubscriptionWhereInput): AlbumSubscriptionPayload
+}
+

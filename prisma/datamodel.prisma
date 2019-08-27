@@ -1,0 +1,23 @@
+type Genre{
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  name: String!
+  albums: [Album!]!
+}
+
+type Artist{
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  name: String!
+  age: Int!
+  albums: [Album!]!
+}
+
+type Album {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  name: String!
+  genre: Genre! @relation(link:INLINE)
+  artist: Artist! @relation(link:INLINE)
+}
+
